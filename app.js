@@ -143,6 +143,6 @@ async function main() {
 
 
   const server = http.createServer(app);
-  server.listen(80);
+  server.listen(process.env.PORT || 80);
 }
 main().catch(console.error);
