@@ -18,7 +18,7 @@ require('dotenv').config();
 const oauth2Client = new google.auth.OAuth2(
  process.env.CLIENTID,
  process.env.CLIENTSECRET,
- "https://jesusargenissalazar.github.io/newFichasFront/login"
+ "https://testgoogleapi-production.up.railway.app/oauth2"
 );
 
 // Access scopes for read-only Drive activity.
