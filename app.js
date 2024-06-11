@@ -204,9 +204,10 @@ async function main() {
 
   });
 
-  app.get('/messages', (req,res)=>{
+  app.get('/messages', async (req,res)=>{
     
     oauth2Client.setCredentials(credentialUserSaved);
+    let mensajes = [];
 
     const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
