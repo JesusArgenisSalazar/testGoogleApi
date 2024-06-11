@@ -105,12 +105,12 @@ async function main() {
     const messages = response.data.messages;
     if (messages.length) {
         console.log('Messages:');
-        messages.forEach((message) => {
-        console.log(`${message.id}`);
+        for(let i = 0; i < 4; i++){
+        console.log(`${message[i]}`);
 
         gmail.users.messages.get({
         userId: 'me',
-        id: message.id,
+        id: message[i],
         format: 'full'
         },(err,response)=>{
 
@@ -124,17 +124,24 @@ async function main() {
         })
 
 
-      });
+      }
 
     } else {
       console.log('No messages found.');
     }
  
 
-  console.log(mensajes, "los mensajes")
-  res.json({mensajes});
+ 
 
   }
+   
+   setTimeout(()=>{
+    
+    console.log(mensajes, "los mensajes")
+  res.json({mensajes});
+
+   },9000);
+   
 });
 
 
