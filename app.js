@@ -114,8 +114,8 @@ async function main() {
         gmail.users.messages.get({
         userId: 'me',
         id: messages[i].id,
-        format: 'metadata',
-        metadataHeaders: ['From', 'Subject', 'Date']
+        format: 'full',
+        // metadataHeaders: ['From', 'Subject', 'Date']
         },(err,finalRes)=>{
 
           if(err){
