@@ -102,9 +102,12 @@ async function main() {
 
     }else{
 
+
+
     const messages = response.data.messages;
     if (messages.length) {
         console.log('Messages:');
+        console.log(messages);
         for(let i = 0; i < 4; i++){
         console.log(`${messages[i]} id del mensaje`);
 
