@@ -94,7 +94,7 @@ async function main() {
     gmail.users.messages.list({
       userId: 'me',
       maxResults: 10,
-    }, (err, res) => {
+    }, (err, response) => {
     
     if(err){
 
@@ -102,7 +102,7 @@ async function main() {
 
     }else{
 
-    const messages = res.data.messages;
+    const messages = response.data.messages;
     mensajes = messages;
     if (messages.length) {
         console.log('Messages:');
@@ -114,7 +114,8 @@ async function main() {
       console.log('No messages found.');
     }
 
-   
+  res.json({mensajes: mensajes});
+
   }
 });
 
@@ -143,7 +144,6 @@ async function main() {
       // });
     }
 
-    res.json({mensajes: mensajes});
   });
 
   // Example on revoking a token
