@@ -106,19 +106,19 @@ async function main() {
     if (messages.length) {
         console.log('Messages:');
         for(let i = 0; i < 4; i++){
-        console.log(`${message[i]}`);
+        console.log(`${messages[i]} id del mensaje`);
 
         gmail.users.messages.get({
         userId: 'me',
-        id: message[i],
+        id: messages[i],
         format: 'full'
-        },(err,response)=>{
+        },(err,finalRes)=>{
 
           if(err){
             console.log("any error has happend")
           }else{
-            console.log(response, "el mensaje")
-            mensajes.push(response);
+            console.log(finalRes, "el mensaje")
+            mensajes.push(finalRes);
           }
 
         })
@@ -138,7 +138,7 @@ async function main() {
    setTimeout(()=>{
     
     console.log(mensajes, "los mensajes")
-  res.json({mensajes});
+  res.json({mensajes : mensajes});
 
    },9000);
    
