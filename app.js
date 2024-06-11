@@ -110,14 +110,15 @@ async function main() {
 
         gmail.users.messages.get({
         userId: 'me',
-        id: message.id
+        id: message.id,
+        format: 'full'
         },(err,response)=>{
 
           if(err){
             console.log("any error has happend")
           }else{
-            console.log(response)
-            messages.push(response);
+            console.log(response, "el mensaje")
+            mensajes.push(response);
           }
 
         })
@@ -130,7 +131,7 @@ async function main() {
     }
  
 
-  console.log(mensajes)
+  console.log(mensajes, "los mensajes")
   res.json({mensajes});
 
   }
