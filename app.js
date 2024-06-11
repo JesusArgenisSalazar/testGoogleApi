@@ -87,7 +87,38 @@ async function main() {
      console.log(tokens, "tokens")
      console.log(userCredential, "userCredential");
       
-      res.json({tokens : tokens, userCredential : userCredential});
+         
+      // Example of using Gmail API to list messages.
+     const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+
+    gmail.users.messages.list({
+      userId: 'me',
+      maxResults: 10,
+    }, (err, res) => {
+    
+    if(err){
+
+    console.log('The API returned an error: ' + err);
+
+    }else{
+
+    const messages = res.data.messages;
+    if (messages.length) {
+        console.log('Messages:');
+        messages.forEach((message) => {
+        console.log(`${message.id}`);
+      });
+
+    } else {
+      console.log('No messages found.');
+    }
+
+    res.json(messages)
+  }
+});
+
+      
+      // res.json({tokens : tokens, userCredential : userCredential});
 
       // Example of using Google Drive API to list filenames in user's Drive.
       // const drive = google.drive('v3');
