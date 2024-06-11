@@ -128,6 +128,7 @@ async function main() {
             const subject = headers.find(header => header.name === 'Subject').value;
             const date = headers.find(header => header.name === 'Date').value;
             const body = finalRes.data.payload.body;
+            const snippet = finalRes.data.snippet;
             let finalBody = "";
             console.log(body)
 
@@ -142,6 +143,7 @@ async function main() {
               remitente : sender,
               fecha : date,
               asunto : subject,
+              descripcion : snippet,
               Cuerpo : finalBody
             }
 
