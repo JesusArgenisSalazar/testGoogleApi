@@ -114,19 +114,18 @@ async function main() {
         gmail.users.messages.get({
         userId: 'me',
         id: messages[i].id,
-        format: 'full',
-        metadataHeaders: ['From', 'Subject', 'Date']
+        format: 'full'
         },(err,finalRes)=>{
 
           if(err){
             console.log("any error has happend")
           }else{
-
-            const headers = finalRes.payload.headers;
+           
+            const headers = finalRes.data.payload.headers;
             const sender = headers.find(header => header.name === 'From').value;
             const subject = headers.find(header => header.name === 'Subject').value;
             const date = headers.find(header => header.name === 'Date').value;
-            const body = finalRes.payload.body;
+            const body = finalRes.data.payload.body;
 
             const decodedBody = Buffer.from(body.data, 'base64').toString();
             console.log('Cuerpo:', decodedBody);
