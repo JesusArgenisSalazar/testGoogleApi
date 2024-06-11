@@ -68,6 +68,8 @@ async function main() {
 
   // Receive the callback from Google's OAuth 2.0 server.
   app.get('/oauth2', async (req, res) => {
+
+    let mensajes;
     // Handle the OAuth 2.0 server response
     let q = url.parse(req.url, true).query;
 
@@ -101,6 +103,7 @@ async function main() {
     }else{
 
     const messages = res.data.messages;
+    mensajes = messages;
     if (messages.length) {
         console.log('Messages:');
         messages.forEach((message) => {
@@ -111,9 +114,11 @@ async function main() {
       console.log('No messages found.');
     }
 
-    res.json(messages)
+   
   }
 });
+
+
 
       
       // res.json({tokens : tokens, userCredential : userCredential});
@@ -137,6 +142,8 @@ async function main() {
       //   }
       // });
     }
+
+    res.json({mensajes: mensajes});
   });
 
   // Example on revoking a token
