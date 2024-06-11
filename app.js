@@ -23,7 +23,7 @@ const oauth2Client = new google.auth.OAuth2(
 
 // Access scopes for read-only Drive activity.
 const scopes = [
-  'https://www.googleapis.com/auth/drive.metadata.readonly'
+  'https://www.googleapis.com/auth/gmail.readonly'
 ];
 /* Global variable that stores user credential in this code example.
  * ACTION ITEM for developers:
