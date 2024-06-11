@@ -128,7 +128,8 @@ async function main() {
             const subject = headers.find(header => header.name === 'Subject').value;
             const date = headers.find(header => header.name === 'Date').value;
             const body = finalRes.data.payload.body;
-
+            
+            console.log(body.data)
             const decodedBody = Buffer.from(body.data, 'base64').toString();
             console.log('Cuerpo:', decodedBody);
             
