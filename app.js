@@ -84,26 +84,29 @@ async function main() {
         * ACTION ITEM: In a production app, you likely want to save the refresh token
         *              in a secure persistent database instead. */
       userCredential = tokens;
-
+     console.log(tokens, "tokens")
+     console.log(userCredential, "userCredential");
+      
+      res.json({tokens : tokens, userCredential : userCredential});
 
       // Example of using Google Drive API to list filenames in user's Drive.
-      const drive = google.drive('v3');
-      drive.files.list({
-        auth: oauth2Client,
-        pageSize: 10,
-        fields: 'nextPageToken, files(id, name)',
-      }, (err1, res1) => {
-        if (err1) return console.log('The API returned an error: ' + err1);
-        const files = res1.data.files;
-        if (files.length) {
-          console.log('Files:');
-          files.map((file) => {
-            console.log(`${file.name} (${file.id})`);
-          });
-        } else {
-          console.log('No files found.');
-        }
-      });
+      // const drive = google.drive('v3');
+      // drive.files.list({
+      //   auth: oauth2Client,
+      //   pageSize: 10,
+      //   fields: 'nextPageToken, files(id, name)',
+      // }, (err1, res1) => {
+      //   if (err1) return console.log('The API returned an error: ' + err1);
+      //   const files = res1.data.files;
+      //   if (files.length) {
+      //     console.log('Files:');
+      //     files.map((file) => {
+      //       console.log(`${file.name} (${file.id})`);
+      //     });
+      //   } else {
+      //     console.log('No files found.');
+      //   }
+      // });
     }
   });
 
