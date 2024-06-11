@@ -128,18 +128,21 @@ async function main() {
             const subject = headers.find(header => header.name === 'Subject').value;
             const date = headers.find(header => header.name === 'Date').value;
             const body = finalRes.data.payload.body;
-            
+            let finalBody = "";
             console.log(body)
-            const decodedBody = Buffer.from(body, 'base64').toString();
+
+            if(body.data){
+            const decodedBody = Buffer.from(body.data, 'base64').toString();
             console.log('Cuerpo:', decodedBody);
-            
+            finalBody = decodedBody;
+            }
             console.log(finalRes, "el mensaje")
 
             let masterMessage = {
               remitente : sender,
               fecha : date,
               asunto : subject,
-              Cuerpo : decodedBody
+              Cuerpo : finalBody
             }
 
             console.log(masterMessage,"real message")
