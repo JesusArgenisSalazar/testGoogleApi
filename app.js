@@ -73,7 +73,8 @@ async function main() {
 
     if (q.error) { // An error response e.g. error=access_denied
       console.log('Error:' + q.error);
-       } else { // Get access and refresh tokens (if access_type is offline)
+    
+    } else { // Get access and refresh tokens (if access_type is offline)
       let { tokens } = await oauth2Client.getToken(q.code);
       oauth2Client.setCredentials(tokens);
 
