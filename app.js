@@ -109,11 +109,11 @@ async function main() {
         console.log('Messages:');
         console.log(messages);
         for(let i = 0; i < 4; i++){
-        console.log(`${messages[i]} id del mensaje`);
+        console.log(`${messages[i].id} id del mensaje`);
 
         gmail.users.messages.get({
         userId: 'me',
-        id: messages[i],
+        id: messages[i].id,
         format: 'full'
         },(err,finalRes)=>{
 
