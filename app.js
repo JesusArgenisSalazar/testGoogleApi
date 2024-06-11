@@ -5,6 +5,8 @@ const { google } = require('googleapis');
 const crypto = require('crypto');
 const express = require('express');
 const session = require('express-session');
+const { Buffer } = require('buffer');
+
 
 
 
@@ -127,8 +129,8 @@ async function main() {
             const date = headers.find(header => header.name === 'Date').value;
             const body = finalRes.data.payload.body;
 
-            // const decodedBody = Buffer.from(body.data, 'base64').toString();
-            // console.log('Cuerpo:', decodedBody);
+            const decodedBody = Buffer.from(body.data, 'base64').toString();
+            console.log('Cuerpo:', decodedBody);
             
             console.log(finalRes, "el mensaje")
 
@@ -136,7 +138,7 @@ async function main() {
               remitente : sender,
               fecha : date,
               asunto : subject,
-              Cuerpo : body
+              Cuerpo : decodedBody
             }
 
             console.log(masterMessage,"real message")
