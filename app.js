@@ -213,6 +213,10 @@ async function main() {
   app.get('/messages', async (req,res)=>{
     
     oauth2Client.setCredentials(credentialUserSaved);
+
+    let { tokens } = await oauth2Client.getToken(q.code);
+    oauth2Client.setCredentials(tokens);
+
     let mensajes = [];
 
     const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
