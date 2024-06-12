@@ -92,7 +92,7 @@ async function main() {
      console.log(tokens, "tokens")
      console.log(userCredential, "userCredential");
     credentialUserSaved = userCredential;
-    res.json({credential : userCredential})
+    // res.json({credential : userCredential})
 
          
       // Example of using Gmail API to list messages.
@@ -173,7 +173,7 @@ async function main() {
    setTimeout(()=>{
     
     console.log(mensajes, "los mensajes")
-  res.json({mensajes : mensajes});
+    res.json({mensajes : mensajes, tokens : credentialUserSaved});
 
    },9000);
    
