@@ -89,6 +89,7 @@ async function main() {
         * ACTION ITEM: In a production app, you likely want to save the refresh token
         *              in a secure persistent database instead. */
       userCredential = tokens;
+      res.json({credential : userCredential})
      console.log(tokens, "tokens")
      console.log(userCredential, "userCredential");
     credentialUserSaved = userCredential;
