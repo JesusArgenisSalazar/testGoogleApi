@@ -11,6 +11,7 @@ const { Buffer } = require('buffer');
 
 
 const cors = require('cors');
+
 require('dotenv').config();
 /**
  * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI.
@@ -44,6 +45,9 @@ async function main() {
     resave: false,
     saveUninitialized: false,
   }));
+
+  app.use(cors());
+
 
 
   let credentialUserSaved;
