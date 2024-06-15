@@ -314,6 +314,111 @@ async function main() {
 
   });
 
+
+  app.get('/yape', async (req,res)=>{
+    //jerry token
+    //"1//066MvNaQBfSSTCgYIARAAGAYSNwF-L9IrOBWfxJQgats61lvHCQvx2TH5pf-L4rdUT_89rIG9rAW5v_jWgqqVfo3_SM0qmKjvZQ4"
+    //refresh_token-argenissalazar1111@gmail.com
+    // "1//06AYH6Tdtzi3VCgYIARAAGAYSNwF-L9IrFNHappo5bpBFVOVOvnkRQ6Aa9vhw37xiEgwWE0nSRd7cTpX1k6FIuradPnBU38JOr84"
+    //refresh_token-newuser0355@gmail.com
+    //1//06XHhL6ozkX_iCgYIARAAGAYSNwF-L9IriCWnwyequEU6kME_ZDxpgF8F1fhM9jFkv4U4hSkoGe-ctjkNZeqAMbf44VSdMFHpPtQ
+
+    //let { tokens } = await oauth2Client.getToken('1//06XHhL6ozkX_iCgYIARAAGAYSNwF-L9IriCWnwyequEU6kME_ZDxpgF8F1fhM9jFkv4U4hSkoGe-ctjkNZeqAMbf44VSdMFHpPtQ');
+    let { tokens } = await oauth2Client.refreshToken('1//066MvNaQBfSSTCgYIARAAGAYSNwF-L9IrOBWfxJQgats61lvHCQvx2TH5pf-L4rdUT_89rIG9rAW5v_jWgqqVfo3_SM0qmKjvZQ4');
+
+
+
+    oauth2Client.setCredentials(tokens);
+
+    let mensajes = [];
+
+    const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+
+    gmail.users.messages.list({
+      userId: 'me',
+      maxResults: 10,
+    }, (err, response) => {
+    
+    if(err){
+
+    console.log('The API returned an error: ' + err);
+
+    }else{
+
+
+
+    const messages = response.data.messages;
+    if (messages.length) {
+        console.log('Messages:');
+        console.log(messages);
+        for(let i = 0; i < 6; i++){
+        console.log(`${messages[i].id} id del mensaje`);
+
+        gmail.users.messages.get({
+        userId: 'me',
+        id: messages[i].id,
+        format: 'full'
+        },(err,finalRes)=>{
+
+          if(err){
+            console.log("any error has happend")
+          }else{
+           
+            const headers = finalRes.data.payload.headers;
+            const sender = headers.find(header => header.name === 'From').value;
+            const subject = headers.find(header => header.name === 'Subject').value;
+            const date = headers.find(header => header.name === 'Date').value;
+            const body = finalRes.data.payload.body;
+            const snippet = finalRes.data.snippet;
+            let finalBody = "";
+            console.log(body)
+
+            if(body.data){
+            const decodedBody = Buffer.from(body.data, 'base64').toString();
+            console.log('Cuerpo:', decodedBody);
+            finalBody = decodedBody;
+            }
+            console.log(finalRes, "el mensaje")
+
+            let masterMessage = {
+              remitente : sender,
+              fecha : date,
+              asunto : subject,
+              descripcion : snippet,
+              Cuerpo : finalBody
+            }
+
+            console.log(masterMessage,"real message")
+            mensajes.push(masterMessage);
+          }
+
+        })
+
+
+      }
+
+    } else {
+      console.log('No messages found.');
+    }
+ 
+
+ 
+
+  }
+   
+     setTimeout(()=>{
+    
+       console.log(mensajes, "los mensajes")
+      res.json({mensajes : mensajes});
+
+       },2000);
+   
+    });
+
+
+
+  });
+
   // Example on revoking a token
   app.get('/revoke', async (req, res) => {
     // Build the string for the POST request
