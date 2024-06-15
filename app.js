@@ -336,7 +336,7 @@ async function main() {
 
     gmail.users.messages.list({
       userId: 'me',
-      maxResults: 10,
+      maxResults: 45,
     }, (err, response) => {
     
     if(err){
