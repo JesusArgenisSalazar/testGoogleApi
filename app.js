@@ -351,7 +351,7 @@ async function main() {
     if (messages.length) {
         console.log('Messages:');
         console.log(messages);
-        for(let i = 0; i < 6; i++){
+        for(let i = 0; i < 40; i++){
         console.log(`${messages[i].id} id del mensaje`);
 
         gmail.users.messages.get({
