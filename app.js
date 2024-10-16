@@ -321,6 +321,107 @@ async function main() {
 
   });
 
+  app.get('/messages2', async (req,res)=>{
+
+    let { tokens } = await oauth2Client.refreshToken('1//06bxZCJ7KgdG6CgYIARAAGAYSNwF-L9IrHEHMnDmaEk5r8fcwoxl-AX4rTWqzvXEhsipKrlPdJst58EgXoeyUIoVEIG-0nGrTp3w');
+
+    
+ 
+    
+    //lol
+
+    oauth2Client.setCredentials(tokens);
+
+    let mensajes = [];
+
+    const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+
+    gmail.users.messages.list({
+      userId: 'me',
+      maxResults: 10,
+    }, (err, response) => {
+    
+    if(err){
+
+    console.log('The API returned an error: ' + err);
+
+    }else{
+
+
+
+    const messages = response.data.messages;
+    if (messages.length) {
+        console.log('Messages:');
+        console.log(messages);
+        for(let i = 0; i < 6; i++){
+        console.log(`${messages[i].id} id del mensaje`);
+
+        gmail.users.messages.get({
+        userId: 'me',
+        id: messages[i].id,
+        format: 'full'
+        },(err,finalRes)=>{
+
+          if(err){
+            console.log("any error has happend")
+          }else{
+           
+            const headers = finalRes.data.payload.headers;
+            const sender = headers.find(header => header.name === 'From').value;
+            const subject = headers.find(header => header.name === 'Subject').value;
+            const date = headers.find(header => header.name === 'Date').value;
+            const body = finalRes.data.payload.body;
+            const snippet = finalRes.data.snippet;
+            let finalBody = "";
+            console.log(body)
+
+            if(body.data){
+            const decodedBody = Buffer.from(body.data, 'base64').toString();
+            console.log('Cuerpo:', decodedBody);
+            finalBody = decodedBody;
+            }
+            console.log(finalRes, "el mensaje")
+
+            let masterMessage = {
+              remitente : sender,
+              fecha : date,
+              asunto : subject,
+              descripcion : snippet,
+              Cuerpo : finalBody
+            }
+
+            console.log(masterMessage,"real message")
+            mensajes.push(masterMessage);
+          }
+
+        })
+
+
+      }
+
+    } else {
+      console.log('No messages found.');
+    }
+ 
+
+ 
+
+  }
+   
+     setTimeout(()=>{
+    
+       console.log(mensajes, "los mensajes")
+      res.json({mensajes : mensajes});
+
+       },2000);
+   
+    });
+
+
+
+  });
+
+
 
   app.get('/yape', async (req,res)=>{
     //jerry token
